@@ -20,7 +20,7 @@ class Play extends Phaser.Scene {
     // place tile sprite
     // this.background = this.add.tileSprite(0, 0, 360, 640, 'background').setOrigin(0,0);
     this.background = this.add.tileSprite(0, 0, 360, 640, 'field').setOrigin(0,0);
-    this.cloudies = this.add.tileSprite(0, 0, 360, 640, 'cloudsalone').setOrigin(0,0);
+    this.cloudies = this.add.tileSprite(0, 0, 360, 640, 'overcast').setOrigin(0,0);
 
     //place bird
     this.player = new Bird(this, game.config.width/2, game.config.height - UISize - 45, 'bird').setOrigin(0.5, 0);
