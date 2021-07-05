@@ -2,13 +2,7 @@ class Menu extends Phaser.Scene {
     constructor() {
       super("menuScene");
     }
-  
-    preload() {
-      // load audio
-      this.load.audio('music', './assets/music.wav');
-    }
-  
-  
+
     create() {
       let menuConfig = {
         fontFamily: 'Georgia',
@@ -36,7 +30,6 @@ class Menu extends Phaser.Scene {
   
     update() {
       if (Phaser.Input.Keyboard.JustDown(keySPACE)) {
-        this.sound.play('music');
         this.scene.start('playScene');
       }
     }
