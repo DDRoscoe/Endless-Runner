@@ -8,6 +8,9 @@ class Play extends Phaser.Scene {
       this.load.image('bird', './assets/bird.png');
       this.load.image('background', './assets/background.png');
 
+      // load audio
+      this.load.audio('bgm', './assets/clouded_skies_bgm.wav');
+
       // add bird collision animation here
   }
 
@@ -21,6 +24,10 @@ class Play extends Phaser.Scene {
     //place UI bottom rectangle and separation line rectangle
     this.add.rectangle(0, game.config.height - UISize, game.config.width, UISize, 0x000080).setOrigin(0, 0);
     this.add.rectangle(0, game.config.height - UISize, game.config.width, 5, 0xF5F5DC).setOrigin(0, 0);
+
+    // play music
+    this.bgm = this.sound.add('bgm');
+    this.bgm.play({loop: true});
     
     // define keys
     keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
