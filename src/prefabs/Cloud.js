@@ -3,14 +3,18 @@ class Cloud extends Phaser.GameObjects.Sprite {
         super(scene, x, y, texture, frame);
         scene.add.existing(this);   // add to existing scene
         this.points = pointValue;   // store pointValue
-        this.moveSpeed = game.settings.cloudMoveSpeed;        // pixels per frame
+        this.moveSpeed = 1.2;        // pixels per frame
     }
 
     update() {
         this.y += this.moveSpeed;       // move down
-        // wrap around from bottom to top
-        if (this.y >= game.config.height) {
-            this.y = 0;
-        }
+    }
+
+    reset () {
+        this.moveSpeed += 0.3;
+        let ranX = Phaser.Math.Between(50, game.config.width - 50)
+        let ranY = Phaser.Math.Between(-50, -500)
+        this.x = ranX;
+        this.y = ranY;
     }
 }

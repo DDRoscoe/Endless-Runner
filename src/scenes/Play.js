@@ -18,19 +18,25 @@ class Play extends Phaser.Scene {
 
   create() {
     // place tile sprite
-    // this.background = this.add.tileSprite(0, 0, 360, 640, 'background').setOrigin(0,0);
     this.background = this.add.tileSprite(0, 0, 360, 640, 'field').setOrigin(0,0);
     this.cloudies = this.add.tileSprite(0, 0, 360, 640, 'overcast').setOrigin(0,0);
 
     //place bird
     this.player = new Bird(this, game.config.width/2, game.config.height - UISize - 45, 'bird').setOrigin(0.5, 0);
 
-    // create cloud enemies
-    // random number generation
-    let random = Phaser.Math.Between(0, game.config.width);
-    this.enemy1 = new Cloud(this, random, 0, 'cloud', 0).setOrigin(0, 0);
+    // create cloud enemies via random number generation
+    let ranX = Phaser.Math.Between(50, game.config.width - 50);
+    let ranY = Phaser.Math.Between(-50, -500);
+    this.enemy1 = new Cloud(this, ranX, ranY, 'cloud', 0).setOrigin(0.5, 0);
+    ranX = Phaser.Math.Between(50, game.config.width - 50);
+    ranY = Phaser.Math.Between(-50, -500)
+    this.enemy2 = new Cloud(this, ranX, ranY, 'cloud', 0).setOrigin(0.5, 0);
+    ranX = Phaser.Math.Between(50, game.config.width - 50);
+    ranY = Phaser.Math.Between(-50, -500);
+    this.enemy3 = new Cloud(this, ranX, ranY, 'cloud', 0).setOrigin(0.5, 0);
 
     //place UI bottom rectangle and separation line rectangle
+    this.add.rectangle(0, game.config.height - UISize, game.config.width, UISize - 50, 0xF5F5DC).setOrigin(0,0);
     this.add.rectangle(0, game.config.height - UISize, game.config.width, UISize, 0x000080).setOrigin(0, 0);
     this.add.rectangle(0, game.config.height - UISize, game.config.width, 5, 0xF5F5DC).setOrigin(0, 0);
 
@@ -61,7 +67,22 @@ class Play extends Phaser.Scene {
       },
       fixedWidth: 100
     }
-    this.scoreLeft = this.add.text(borderSize, game.config.height - UISize + 20, this.score, scoreConfig);
+    this.scoreLeft = this.add.text(borderSize + 10, game.config.height - UISize + 10, 'Score:' + this.score, scoreConfig);
+
+    // difficulty and display
+    let diffConfig = {
+      fontFamily: 'Georgia',
+      fontSize: '30px',
+      color: '#000000',
+      align: 'center',
+      backgroundColor: '#00FF00',
+      padding: {
+        top: 5,
+        bottom: 5,
+      },
+      fixedWidth: 120
+    }
+    this.diffRight = this.add.text(game.config.width - borderSize - 140, game.config.height - UISize + 20, 'Easy', diffConfig);
   }
 
   update() {
@@ -75,31 +96,63 @@ class Play extends Phaser.Scene {
     }
 
     if (!this.gameOver) {
+      // moving background
       this.background.tilePositionY -= 1;
       this.cloudies.tilePositionY -= 1;
       this.cloudies.tilePositionX -= 0.5;
+      // update player
       this.player.update();
-      this.enemy1.update();      
+      // update enemy
+      this.enemy1.update();
+      this.enemy2.update();
+      this.enemy3.update();
+      // update score    
       this.score++;
       this.displayScore = Math.floor(this.score / 10);
       this.scoreLeft.text = this.displayScore;
+
+      // update difficulty
+      if (this.displayScore == 200) {
+        this.diffRight.setBackgroundColor('#FFFF00');
+        this.diffRight.text = 'Medium';
+      }
+      if (this.displayScore == 350) {
+        this.diffRight.setBackgroundColor('#FF0000');
+        this.diffRight.text = 'Hard';
+      }
+      if (this.displayScore == 500) {
+        this.diffRight.setBackgroundColor('#FF00FF');
+        this.diffRight.setFontSize(20);
+        this.diffRight.text = 'Impossible';
+      }
     }
 
     // checking collisions
-    if (this.checkCollision(this.player, this.enemy1)) {
+    if (this.checkCollision(this.player, this.enemy1) || this.checkCollision(this.player, this.enemy2)) {
       this.gameOver = true;
       this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER').setOrigin(0.5);
       this.add.text(game.config.width/2, game.config.height/2 + 64, 'Press R to Restart or M for Menu').setOrigin(0.5);
       this.gameOver = true;
     }
+
+    // check if enemy passed border
+    if (this.enemy1.y > game.config.height) {
+      this.enemy1.reset();
+    }
+    if (this.enemy2.y >= game.config.height) {
+      this.enemy2.reset();
+    }
+    if (this.enemy3.y >= game.config.height) {
+      this.enemy3.reset();
+    }
   }
 
-  checkCollision (player, enemy) {
+  checkCollision (entity1, entity2) {
     // simple AABB checking
-    if (player.x < enemy.x + enemy.width && 
-    player.x + player.width > enemy.x && 
-    player.y < enemy.y + enemy.height &&
-    player.height + player.y > enemy. y) {
+    if (entity1.x < entity2.x + entity2.width && 
+      entity1.x + entity1.width > entity2.x && 
+      entity1.y < entity2.y + entity2.height &&
+      entity1.height + entity1.y > entity2.y) {
       return true;
     } 
     else {

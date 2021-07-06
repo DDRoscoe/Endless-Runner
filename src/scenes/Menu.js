@@ -19,7 +19,7 @@ class Menu extends Phaser.Scene {
   
       // show menu text
       this.add.text(game.config.width/2, game.config.height/3 , 'CLOUDED SKIES', menuConfig).setOrigin(0.5);
-      this.add.text(game.config.width/2, game.config.height/2.5, 'Use <--> arrows to move', menuConfig).setOrigin(0.5);
+      this.add.text(game.config.width/2, game.config.height/2.5, 'Use Left, Right, Up, and Uown to move', menuConfig).setOrigin(0.5);
       menuConfig.backgroundColor = '#00FF00';
       menuConfig.color = '#000';
       this.add.text(game.config.width/2, game.config.height/2, 'Press Space to begin', menuConfig).setOrigin(0.5);
@@ -31,9 +31,6 @@ class Menu extends Phaser.Scene {
     update() {
       if (Phaser.Input.Keyboard.JustDown(keySPACE)) {
         this.scene.start('playScene');
-        game.settings = {
-          cloudMoveSpeed: 1
-        }
       }
     }
 }
