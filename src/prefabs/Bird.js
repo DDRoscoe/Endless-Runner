@@ -23,6 +23,6 @@ class Bird extends Phaser.GameObjects.Sprite {
     }
   
     reset() {
-        this.y=game.config.height
+        this.y = game.config.height
     }
 }

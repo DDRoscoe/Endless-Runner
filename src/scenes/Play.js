@@ -143,32 +143,23 @@ class Play extends Phaser.Scene {
 
       // press space to birdcall at a random pitch  
       if (Phaser.Input.Keyboard.JustDown(keySPACE) && !this.birdcall.isPlaying) {
-      this.birdcall.play({detune: Math.floor(Math.random() * 400 - 200)});
+        this.birdcall.play({detune: Math.floor(Math.random() * 400 - 200)});
       }
     }
   
 
     // checking collisions
-    if (this.checkCollision(this.player, this.enemy1) || this.checkCollision(this.player, this.enemy2) || this.checkCollision(this.player, this.enemy3) {
+    if (this.checkCollision(this.player, this.enemy1) || this.checkCollision(this.player, this.enemy2) || this.checkCollision(this.player, this.enemy3)) {
       this.gameOver = true;
+      this.birdcall.play({detune: Math.floor(Math.random() * 400 - 200)});
       this.BirdDeath(this.player);
       this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER').setOrigin(0.5);
       this.add.text(game.config.width/2, game.config.height/2 + 64, 'Press R to Restart or M for Menu').setOrigin(0.5);
       this.gameOver = true;
     }
 
-BirdDeath (phoenix) {
-  phoenix.alpha=0;
-  let burn = this.add.sprite(phoenix.x, phoenix.y, 'explosion').setOrigin(0, 0);
-  burn.anims.play('fire');
-  burn.on('animationcomplete', () => {
-      phoenix.reset();
-      phoenix.alpha=1;
-      burn.destroy();
-  });
-
     // check if enemy passed border
-    if (this.enemy1.y > game.config.height) {
+    if (this.enemy1.y >= game.config.height) {
       this.enemy1.reset();
     }
     if (this.enemy2.y >= game.config.height) {
@@ -177,6 +168,17 @@ BirdDeath (phoenix) {
     if (this.enemy3.y >= game.config.height) {
       this.enemy3.reset();
     }
+  }
+
+  BirdDeath (phoenix) {
+    phoenix.alpha=0;
+    let burn = this.add.sprite(phoenix.x, phoenix.y, 'explosion').setOrigin(0.5, 0);
+    burn.anims.play('fire');
+    burn.on('animationcomplete', () => {
+        phoenix.reset();
+        phoenix.alpha=1;
+        burn.destroy();
+    });
   }
 
   checkCollision (entity1, entity2) {
