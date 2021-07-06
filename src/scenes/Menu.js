@@ -39,6 +39,7 @@ class Menu extends Phaser.Scene {
     if (Phaser.Input.Keyboard.JustDown(keySPACE)) {
       this.scene.start('playScene');
     }
+    
     // volume control
     if (Phaser.Input.Keyboard.JustDown(keyUP) && this.sound.volume <= 1) {
       this.sound.volume += 0.1;
