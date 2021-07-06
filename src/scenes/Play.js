@@ -82,7 +82,7 @@ class Play extends Phaser.Scene {
       },
       fixedWidth: 100
     }
-    this.scoreLeft = this.add.text(borderSize + 10, game.config.height - UISize + 10, 'Score:' + this.score, scoreConfig);
+    this.scoreLeft = this.add.text(borderSize + 10, game.config.height - UISize + 10, this.score, scoreConfig);
 
     // difficulty and display
     let diffConfig = {

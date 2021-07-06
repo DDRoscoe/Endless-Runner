@@ -23,6 +23,7 @@ class Menu extends Phaser.Scene {
     // show menu text
     this.add.text(game.config.width/2, game.config.height/3 , 'CLOUDED SKIES', menuConfig).setOrigin(0.5);
     this.add.text(game.config.width/2, game.config.height/2.5, 'Use Left, Right, Up, and Uown to move', menuConfig).setOrigin(0.5);
+    this.add.text(game.config.width/2, game.config.height/1.75, 'Objective: Avoid the evil clouds!', menuConfig).setOrigin(0.5);
     this.add.text(game.config.width/2, game.config.height/2.26, 'Use Space to bird call (for fun)', menuConfig).setOrigin(0.5);
     menuConfig.backgroundColor = '#00FF00';
     menuConfig.color = '#000';

@@ -1,14 +1,16 @@
 // Jalen Pastor, Ryan Palmberg, Asher Lachoff
 // Game Title: Clouded Skies
 // Date of Completion: 5 July, 2021
+
 // Creative tilt: Our music, art, and parallax effect was 100% created by us.
 // We found our smartphone-type layout was necessary for our vertical-scrolling
 // endless runner, which we thought was a clever approach.
 // We're proud of every aspect of our game, from the game's rules to it's appearance.
-// A few things Jalen implemented that were new was random enemy spawn generation and
-// increasing difficulty as the game progresses (this is displayed by the difficulty at the right in the UI).
+// A few things Jalen implemented that were new were random enemy spawn generation, vertical movement, and
+// increasing difficulty as the game progresses (this is displayed by the text at the right in the UI).
 // A few things Asher implemented that was new were his own created soundtrack that looped
-// throughout the game, and a birdcall sound that plays when the player presses [Space], or when the player dies. 
+// throughout the game, and a birdcall sound (made by him) that plays when the player presses [Space], 
+// or when the player dies. 
 // A few things Ryan implemented that was new were his own art,
 // as well as the parallax affect with the clouds, and the death animation.
 
