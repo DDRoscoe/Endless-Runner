@@ -10,8 +10,8 @@ class Menu extends Phaser.Scene {
     let menuConfig = {
       fontFamily: 'Georgia',
       fontSize: '16px',
-      backgroundColor: '#F3B141',
-      color: '#843605',
+      backgroundColor: '#ADD8E6',
+      color: '#FFFFFF',
       align: 'right',
       padding: {
         top: 5,
@@ -23,9 +23,10 @@ class Menu extends Phaser.Scene {
     // show menu text
     this.add.text(game.config.width/2, game.config.height/3 , 'CLOUDED SKIES', menuConfig).setOrigin(0.5);
     this.add.text(game.config.width/2, game.config.height/2.5, 'Use Left, Right, Up, and Uown to move', menuConfig).setOrigin(0.5);
+    this.add.text(game.config.width/2, game.config.height/2.26, 'Use Space to bird call (for fun)', menuConfig).setOrigin(0.5);
     menuConfig.backgroundColor = '#00FF00';
     menuConfig.color = '#000';
-    this.add.text(game.config.width/2, game.config.height/2, 'Press Space to begin', menuConfig).setOrigin(0.5);
+    this.add.text(game.config.width/2, game.config.height/1.5, 'Press Space to begin', menuConfig).setOrigin(0.5);
 
     // define keys
     keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
