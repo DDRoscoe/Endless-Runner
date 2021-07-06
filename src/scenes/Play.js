@@ -10,6 +10,8 @@ class Play extends Phaser.Scene {
 
       // load audio
       this.load.audio('bgm', './assets/clouded_skies_bgm.wav');
+      this.load.audio('birdcall', './assets/birdcall.wav');
+      // this.load.audio('impact', './assets/impact.wav'); 
 
       // add bird collision animation here
   }
@@ -25,7 +27,8 @@ class Play extends Phaser.Scene {
     this.add.rectangle(0, game.config.height - UISize, game.config.width, UISize, 0x000080).setOrigin(0, 0);
     this.add.rectangle(0, game.config.height - UISize, game.config.width, 5, 0xF5F5DC).setOrigin(0, 0);
 
-    // play music
+    // initialize sounds and play music
+    this.birdcall = this.sound.add('birdcall');
     this.bgm = this.sound.add('bgm');
     this.bgm.play({loop: true});
     
@@ -47,6 +50,13 @@ class Play extends Phaser.Scene {
       fixedWidth: 100
     }
     this.scoreLeft = this.add.text(borderSize, game.config.height - UISize + 20, this.score, scoreConfig);
+
+    this.callTimer = this.time.addEvent({
+      delay: Math.floor(Math.random() * 3000 + 2000), 
+      callback: this.birdcall.play(), 
+      callbackScope: thisArg, 
+      loop: true
+    })
   }
 
   update() {
