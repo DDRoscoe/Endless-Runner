@@ -5,7 +5,8 @@ class Play extends Phaser.Scene {
 
   preload() {
       // load images and tile sprites
-      this.load.image('bird', './assets/bird.png');
+
+      this.load.image('bird', './assets/phoenix2.png');
       this.load.image('cloud', './assets/cloud.png');
       this.load.image('field', './assets/field.png');
       this.load.image('overcast', './assets/cloudsalone.png');
@@ -18,6 +19,7 @@ class Play extends Phaser.Scene {
       this.load.audio('sfx_birdcall', './assets/birdcall.wav');
 
       // add bird collision animation here
+      this.load.spritesheet('flames', './assets/deathanimation.png', {frameWidth: 64, frameHeight: 32, startFrame:0, endFrame: 7});
   }
 
   create() {
@@ -57,6 +59,13 @@ class Play extends Phaser.Scene {
     keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
     keyM = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.M);
     keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+
+    this.anims.create({
+      key: 'fire',
+      frames: this.anims.generateFrameNumbers('flames', { start: 0, end: 7, first: 0}),
+      frameRate: 7
+    })
+
 
     // game over flag
     this.gameOver = false;
@@ -140,12 +149,23 @@ class Play extends Phaser.Scene {
   
 
     // checking collisions
-    if (this.checkCollision(this.player, this.enemy1) || this.checkCollision(this.player, this.enemy2)) {
+    if (this.checkCollision(this.player, this.enemy1) || this.checkCollision(this.player, this.enemy2) || this.checkCollision(this.player, this.enemy3) {
       this.gameOver = true;
+      this.BirdDeath(this.player);
       this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER').setOrigin(0.5);
       this.add.text(game.config.width/2, game.config.height/2 + 64, 'Press R to Restart or M for Menu').setOrigin(0.5);
       this.gameOver = true;
     }
+
+BirdDeath (phoenix) {
+  phoenix.alpha=0;
+  let burn = this.add.sprite(phoenix.x, phoenix.y, 'explosion').setOrigin(0, 0);
+  burn.anims.play('fire');
+  burn.on('animationcomplete', () => {
+      phoenix.reset();
+      phoenix.alpha=1;
+      burn.destroy();
+  });
 
     // check if enemy passed border
     if (this.enemy1.y > game.config.height) {
