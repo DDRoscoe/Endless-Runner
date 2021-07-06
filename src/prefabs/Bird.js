@@ -20,8 +20,8 @@ class Bird extends Phaser.GameObjects.Sprite {
         else if (keyDOWN.isDown && this.y <= game.config.height - UISize - 45) {
             this.y += this.moveSpeed;
         }
-
     }
+  
     reset() {
         this.y=game.config.height
     }
