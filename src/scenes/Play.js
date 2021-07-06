@@ -6,8 +6,9 @@ class Play extends Phaser.Scene {
   preload() {
       // load images and tile sprites
       this.load.image('bird', './assets/bird.png');
-      this.load.image('background', './assets/background.png');
       this.load.image('cloud', './assets/cloud.png');
+      this.load.image('field', './assets/field.png');
+      this.load.image('overcast', './assets/cloudsalone.png');
 
       // load audio
       this.load.audio('bgm', './assets/clouded_skies_bgm.wav');
@@ -17,7 +18,9 @@ class Play extends Phaser.Scene {
 
   create() {
     // place tile sprite
-    this.background = this.add.tileSprite(0, 0, 360, 640, 'background').setOrigin(0,0);
+    // this.background = this.add.tileSprite(0, 0, 360, 640, 'background').setOrigin(0,0);
+    this.background = this.add.tileSprite(0, 0, 360, 640, 'field').setOrigin(0,0);
+    this.cloudies = this.add.tileSprite(0, 0, 360, 640, 'cloudsalone').setOrigin(0,0);
 
     //place bird
     this.player = new Bird(this, game.config.width/2, game.config.height - UISize - 45, 'bird').setOrigin(0.5, 0);
