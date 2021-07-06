@@ -10,6 +10,7 @@ class Play extends Phaser.Scene {
 
       // load audio
       this.load.audio('bgm', './assets/clouded_skies_bgm.wav');
+      this.load.audio('sfx_birdcall', './assets/birdcall.wav');
 
       // add bird collision animation here
   }
@@ -25,13 +26,15 @@ class Play extends Phaser.Scene {
     this.add.rectangle(0, game.config.height - UISize, game.config.width, UISize, 0x000080).setOrigin(0, 0);
     this.add.rectangle(0, game.config.height - UISize, game.config.width, 5, 0xF5F5DC).setOrigin(0, 0);
 
-    // play audio
+    // load audio, play music
+    this.birdcall = this.sound.add('sfx_birdcall')
     this.bgm = this.sound.add('bgm')
-    this.bgm.play({loop: true})
+    this.bgm.play({volume: 0.8, loop: true})
     
     // define keys
     keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
     keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
+    keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
 
     // score and display
@@ -55,5 +58,9 @@ class Play extends Phaser.Scene {
     this.score++;
     this.displayScore = Math.floor(this.score / 10);
     this.scoreLeft.text = this.displayScore;
+    // press space to birdcall at a random pitch  
+    if (Phaser.Input.Keyboard.JustDown(keySPACE) && !this.birdcall.isPlaying) {
+        this.birdcall.play({detune: Math.floor(Math.random() * 400 - 200)});
+    }
   }
 }

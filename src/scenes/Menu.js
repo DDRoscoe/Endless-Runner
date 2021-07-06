@@ -2,6 +2,9 @@ class Menu extends Phaser.Scene {
     constructor() {
       super("menuScene");
     }
+    preload() {
+      this.load.audio('sfx_birdcall', './assets/birdcall.wav');
+    }
 
     create() {
       let menuConfig = {
@@ -26,11 +29,23 @@ class Menu extends Phaser.Scene {
   
       // define keys
       keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+      keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
+      keyDOWN = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN);
     }
   
     update() {
+      // start game
       if (Phaser.Input.Keyboard.JustDown(keySPACE)) {
         this.scene.start('playScene');
+      }
+      // volume control
+      if (Phaser.Input.Keyboard.JustDown(keyUP) && this.sound.volume <= 1) {
+        this.sound.volume += 0.1;
+        this.sound.play('sfx_birdcall');
+      }
+      else if (Phaser.Input.Keyboard.JustDown(keyDOWN) && this.sound.volume > 0) {
+        this.sound.volume -= 0.1;
+        this.sound.play('sfx_birdcall');
       }
     }
 }
